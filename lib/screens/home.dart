@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cake_delivery_system/login.dart';
+import 'package:cake_delivery_system/screens/order_management/addOrder.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -32,7 +33,16 @@ class Home extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const LoginPage()),
                 );
               },
-              child: const Text("Logout"))
+              child: const Text("Logout")),
+
+          ElevatedButton(
+              onPressed: () async {
+                final navigator = Navigator.of(context);
+                navigator.pushReplacement(
+                  MaterialPageRoute(builder: (context) => const AddOrder()),
+                );
+              },
+              child: const Text("AddOrder"))
         ],
       )),
     );
