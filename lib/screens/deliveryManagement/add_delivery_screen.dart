@@ -154,6 +154,7 @@ class _AddDeliveryScreenState extends State<AddDeliveryScreen> {
     );
 
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 250, 238, 242),
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Add Delivery'),

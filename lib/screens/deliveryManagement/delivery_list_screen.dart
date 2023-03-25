@@ -2,6 +2,7 @@ import 'package:cake_delivery_system/models/delivery.dart';
 import 'package:cake_delivery_system/repositories/delivery_repository.dart';
 import 'package:cake_delivery_system/screens/deliveryManagement/add_delivery_screen.dart';
 import 'package:cake_delivery_system/screens/deliveryManagement/update_delivery_screnn.dart';
+import 'package:cake_delivery_system/screens/AdminBottomNav.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,33 @@ class _ListDeliveryScreenState extends State<ListDeliveryScreen> {
       DeliveryRepository.getDeliveries();
   TextEditingController _searchController = TextEditingController();
   String _searchText = "";
+
+  Future<bool> _confirmDeleteDialog(BuildContext context) async {
+  return await showDialog<bool>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Confirm Delete'),
+        content: Text('Are you sure you want to delete this delivery?'),
+        actions: [
+          TextButton(
+            child: Text('CANCEL'),
+            onPressed: () {
+              Navigator.of(context).pop(false);
+            },
+          ),
+          TextButton(
+            child: Text('DELETE'),
+            onPressed: () {
+              Navigator.of(context).pop(true);
+            },
+          ),
+        ],
+      );
+    },
+  ) ?? false;
+}
+
 
   @override
   void initState() {
@@ -45,7 +73,7 @@ class _ListDeliveryScreenState extends State<ListDeliveryScreen> {
               Navigator.pushAndRemoveUntil<dynamic>(
                 context,
                 MaterialPageRoute<dynamic>(
-                  builder: (BuildContext context) => AddDeliveryScreen(),
+                  builder: (BuildContext context) => AdminHomeScreen(),
                 ),
                 (route) =>
                     false, //if you want to disable back feature set to false
@@ -75,10 +103,11 @@ class _ListDeliveryScreenState extends State<ListDeliveryScreen> {
                   child: ListView(
                     children: filteredList.map((e) {
                       return Card(
+                        color: Color.fromARGB(255, 252, 219, 230),
                         child: Column(
                           children: [
                             ListTile(
-                              title: Text("Order Id: " + e["order_id"]),
+                              title: Text("Delivered Order Id: " + e["order_id"]),
                               subtitle: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
@@ -172,20 +201,22 @@ class _ListDeliveryScreenState extends State<ListDeliveryScreen> {
                             ),
                           ),
                       onPressed: () async {
-                        var response =
-                            await DeliveryRepository.deleteDelivery(
-                                docId: e.id);
-                        if (response.code != 200) {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  content:
-                                      Text(response.message.toString()),
-                                );
-                              });
-                        }
-                      },
+  bool confirmed = await _confirmDeleteDialog(context);
+  if (confirmed) {
+    var response = await DeliveryRepository.deleteDelivery(docId: e.id);
+    if (response.code != 200) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text(response.message.toString()),
+          );
+        },
+      );
+    }
+  }
+},
+
                     ),
                   ],
                 ),
