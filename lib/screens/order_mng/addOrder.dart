@@ -114,7 +114,7 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
         decoration: InputDecoration(
             prefixIcon: Icon(Icons.numbers),
             contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-            hintText: "Order Qty",
+            hintText: "Order Qty (Kg)",
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))));
 
@@ -125,14 +125,11 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
           if (value == null || value.trim().isEmpty) {
             return 'This field is required';
           }
-          if (int.tryParse(value) == null) {
-            return 'Please enter a valid number';
-          }
         },
         decoration: InputDecoration(
             prefixIcon: Icon(Icons.abc),
             contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-            hintText: "order Product Name",
+            hintText: "date",
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))));
         final OrderState = TextFormField(
