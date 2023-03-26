@@ -126,7 +126,7 @@ class _SplashScreenState extends State<SplashScreen>
                     end: 1,
                   ).animate(_animationController),
                   child: Image.asset(
-                    '../lib/assets/admin_back.jfif',
+                    'lib/assets/admin_back.jfif',
                     height: 400,
                     width: 400,
                   ),
