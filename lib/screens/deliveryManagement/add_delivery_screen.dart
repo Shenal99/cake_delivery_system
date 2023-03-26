@@ -14,7 +14,8 @@ class _AddDeliveryScreenState extends State<AddDeliveryScreen> {
   final _deliveryPersonNameController = TextEditingController();
   final _deliveryPersonPhoneNumberController = TextEditingController();
   final _deliveryAddressController = TextEditingController();
-  final _deliveryTimeController = TextEditingController(text: DateTime.now().toString());
+  final _deliveryTimeController =
+      TextEditingController(text: DateTime.now().toString());
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +53,12 @@ class _AddDeliveryScreenState extends State<AddDeliveryScreen> {
         validator: (value) {
           if (value == null || value.trim().isEmpty) {
             return 'This field is required';
+          }
+          if(int.tryParse(value)==null){
+            return 'Please enter a valid number';
+          }
+          if(value.length!=10){
+            return "Inavalid Phone No";
           }
         },
         decoration: InputDecoration(
@@ -154,7 +161,7 @@ class _AddDeliveryScreenState extends State<AddDeliveryScreen> {
     );
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 250, 238, 242),
+      backgroundColor: Color.fromARGB(255, 252, 219, 230),
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Add Delivery'),
