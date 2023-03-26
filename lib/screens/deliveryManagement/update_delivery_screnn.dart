@@ -24,18 +24,22 @@ class _UpdateDeliveryScreenState extends State<UpdateDeliveryScreen> {
   @override
   void initState() {
     super.initState();
-    _docid.value = TextEditingValue(text: widget.delivery!.deliveryId.toString());
-    _orderIdController.value = TextEditingValue(text: widget.delivery!.orderId.toString());
-    _deliveryPersonNameController.value = TextEditingValue(text: widget.delivery!.deliveryPersonName.toString());
-    _deliveryPersonPhoneNumberController.value = TextEditingValue(text: widget.delivery!.deliveryPersonPhoneNumber.toString());
-    _deliveryAddressController.value = TextEditingValue(text: widget.delivery!.deliveryAddress.toString());
-    _deliveryTimeController.value = TextEditingValue(text: widget.delivery!.deliveryTime.toString());
+    _docid.value =
+        TextEditingValue(text: widget.delivery!.deliveryId.toString());
+    _orderIdController.value =
+        TextEditingValue(text: widget.delivery!.orderId.toString());
+    _deliveryPersonNameController.value =
+        TextEditingValue(text: widget.delivery!.deliveryPersonName.toString());
+    _deliveryPersonPhoneNumberController.value = TextEditingValue(
+        text: widget.delivery!.deliveryPersonPhoneNumber.toString());
+    _deliveryAddressController.value =
+        TextEditingValue(text: widget.delivery!.deliveryAddress.toString());
+    _deliveryTimeController.value =
+        TextEditingValue(text: widget.delivery!.deliveryTime.toString());
   }
 
   @override
   Widget build(BuildContext context) {
-
-
     final DocIDField = TextField(
         controller: _docid,
         readOnly: true,
@@ -46,8 +50,6 @@ class _UpdateDeliveryScreenState extends State<UpdateDeliveryScreen> {
             hintText: "id",
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))));
-
-         
 
     final OrderIdField = TextFormField(
         controller: _orderIdController,
@@ -84,6 +86,12 @@ class _UpdateDeliveryScreenState extends State<UpdateDeliveryScreen> {
           if (value == null || value.trim().isEmpty) {
             return 'This field is required';
           }
+          if(int.tryParse(value)==null){
+            return 'Please enter a valid number';
+          }
+          if(value.length!=10){
+            return "Invalid Phone No";
+          }
         },
         decoration: InputDecoration(
             prefixIcon: Icon(Icons.phone),
@@ -91,7 +99,7 @@ class _UpdateDeliveryScreenState extends State<UpdateDeliveryScreen> {
             hintText: "Contact Number",
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))));
-      final AddressField = TextFormField(
+    final AddressField = TextFormField(
         controller: _deliveryAddressController,
         autofocus: false,
         validator: (value) {
@@ -105,7 +113,7 @@ class _UpdateDeliveryScreenState extends State<UpdateDeliveryScreen> {
             hintText: "Delivery Address",
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))));
-      final TimeField = TextFormField(
+    final TimeField = TextFormField(
         controller: _deliveryTimeController,
         autofocus: false,
         validator: (value) {
@@ -145,7 +153,8 @@ class _UpdateDeliveryScreenState extends State<UpdateDeliveryScreen> {
             var response = await DeliveryRepository.updateEmployee(
                 orderId: _orderIdController.text,
                 deliveryPersonName: _deliveryPersonNameController.text,
-                deliveryPersonPhoneNumber: _deliveryPersonPhoneNumberController.text,
+                deliveryPersonPhoneNumber:
+                    _deliveryPersonPhoneNumberController.text,
                 deliveryAddress: _deliveryAddressController.text,
                 deliveryTime: _deliveryTimeController.text,
                 docId: _docid.text);
@@ -185,7 +194,7 @@ class _UpdateDeliveryScreenState extends State<UpdateDeliveryScreen> {
     );
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 250, 238, 242),
+      backgroundColor: Color.fromARGB(255, 252, 219, 230),
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Update Delivery'),
@@ -217,7 +226,7 @@ class _UpdateDeliveryScreenState extends State<UpdateDeliveryScreen> {
                   SaveButon,
                   const SizedBox(height: 25.0),
                   viewListbutton,
-                  const SizedBox(height: 15.0), 
+                  const SizedBox(height: 15.0),
                 ],
               ),
             ),

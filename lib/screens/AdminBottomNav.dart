@@ -102,6 +102,7 @@ class HomeScreen extends StatelessWidget {
         child: Center(
           child: Text(
             'Welcome to the Cake Delivery System!',
+            textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
