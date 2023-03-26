@@ -95,7 +95,7 @@ class HomeScreen extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('../lib/assets/admin_back2.jpg'),
+            image: AssetImage('lib/assets/admin_back2.jpg'),
             fit: BoxFit.none,
           ),
         ),
